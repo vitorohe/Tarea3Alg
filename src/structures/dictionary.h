@@ -38,6 +38,10 @@ struct dictionary {
 	
 	int min;
 	int max;
+	int amin;
+	int amax;
+	int key_min;
+	int key_max;
 	int n_elems;	
 	int universo;
 	int nhijos;

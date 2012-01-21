@@ -1,7 +1,7 @@
 #ifndef _VAN_EMDE_BOAS
 #define _VAN_EMDE_BOAS
 #endif
-#include "priority_queue.h"
+#include "dictionary.h"
 #include <math.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -9,14 +9,16 @@
 #include <limits.h>
   
   
-struct priority_queue *pq_new(unsigned int size,unsigned int universe) {
-    struct priority_queue *p;
+struct dictionary *dict_new(unsigned int size,unsigned int universe) {
+    struct dictionary *p;
 	int i,new_universe;
 	
-    p = (struct priority_queue *)malloc(sizeof(struct priority_queue));
+    p = (struct dictionary *)malloc(sizeof(struct dictionary));
     p->n_elems = 0;
     p->min = INT_MIN;
     p->max = INT_MAX;
+    p->key_min = -1;
+    p->key_max = -1;
     p->universo = (int)pow(2,universe);
     p->nhijos = 0;
     
@@ -27,7 +29,7 @@ struct priority_queue *pq_new(unsigned int size,unsigned int universe) {
 		p->atrees = (struct array_trees *)malloc(sizeof(struct array_trees)*p->nhijos);
 		
 		for (i = 0; i < p->nhijos; i++)
-			p->atrees[i].pq_child = pq_new(0,universe/2);
+			p->atrees[i].dict_child = dict_new(0,universe/2);
 	}
 	else{
 		p->atrees = NULL;
@@ -36,17 +38,17 @@ struct priority_queue *pq_new(unsigned int size,unsigned int universe) {
     return p;
 }
 
-int pq_empty(struct priority_queue *p) {
+int dict_empty(struct dictionary *d) {
     int i;
     
-    for(i = 0; p->nhijos; i++)
-		if(p->atrees[i].non_empty == 1)
+    for(i = 0; d->nhijos; i++)
+		if(d->atrees[i].non_empty == 1)
 			return 0;
 			
 	return 1;
 }
 
-void pq_insert(struct priority_queue *pq,unsigned int new_elem) {
+void dict_set(struct dictionary *d, unsigned int key, unsigned int value){
     int i, tmp, h, l;
 
 #ifdef DEBUG
@@ -58,18 +60,22 @@ void pq_insert(struct priority_queue *pq,unsigned int new_elem) {
 
     pq->n_elems++;
     if (pq->n_elems == 1) {
-			pq->max = new_elem;
-			pq->min = new_elem;
+			pq->max = value;
+			pq->key_max = key;
+			pq->min = value;
+			pq->key_min = key;
 			return;
 		}
 		
 	else if (pq->n_elems == 2) {
-		if (new_elem < pq->min) {
-			pq->min = new_elem;
+		if (key < pq->key_min) {
+			pq->key_min = key;
+			pq->min = value;
 			return;
 		}
 		else {
-			pq->max = new_elem;
+			pq->key_max = key;
+			pq->max = value;
 			return;
 		}
 	}
@@ -96,79 +102,122 @@ void pq_insert(struct priority_queue *pq,unsigned int new_elem) {
 		pq_insert (pq->atrees[h].pq_child,l);
 	
 	
-		if (pq->atrees[h].pq_child->n_elems == 1)
+		if (pq->atrees[h].dict_child->n_elems == 1){
 			pq->atrees[h].non_empty = 1;
+			update_amin_amax(d,h);
+		}
 		
 	}
 }
 
-unsigned int pq_extract(struct priority_queue *pq) {
-	
-	int min;
-	
-	min = pq->min;
-	
-	pq_up_min(pq);
-	
-	return min;
-	
-}
-
-
-void pq_up_min(struct priority_queue *pq) {
+void dict_delete(struct dictionary *d, unsigned int key){
     int i=-1;
 
 #ifdef DEBUG
-    if (pq->n_elems == 0) {
-        printf("No elements to extract from priority queue.\n");
+    if (d->n_elems == 0) {
+        printf("No elements to delete from dictionary.\n");
         exit(1);
     }
 #endif
 	
-	pq->n_elems--;
+	d->n_elems--;
 	
-	if(pq->n_elems == 0){
-		pq->min = INT_MIN;
-		pq->max = INT_MAX;
+	if(d->n_elems == 0){
+		d->min = INT_MIN;
+		d->max = INT_MAX;
 		return;
 	}
 	
-	if (pq->n_elems == 1) {
-		pq->min = pq->max;
+	if (d->n_elems == 1) {
+		if(del_elem == d>min)
+			d->min = d->max;
+		else
+			d->max = d->min;
+			
 		return;
 	}
 	
 	
-	else {			
-		if(pq->atrees != NULL){
-			for(i = 0; i < pq->nhijos; i++)
-				if(pq->atrees[i].non_empty == 1)
-					break;
-				
-			pq->min = i*pq->atrees[i].pq_child->universo + pq->atrees[i].pq_child->min;
+	else {
 		
+		if(del_elem == d->min){
+			d->min=d->amin*d->atrees[amin].dict_child->universo + d->atrees[d->amin].dict_child->min;
+			del_elem = d->min;
+			i = d->amin;
+		}			
+		
+		else if(del_elem == d->max){
+			d->max=d->amax*d->atrees[amax].dict_child->universo + d->atrees[d->amax].dict_child->max;
+			del_elem = d->max;
+			i = d->amax;
 		}
+		
 	}
 	
 	if(i != -1){
 		
-		pq_up_min(pq->atrees[i].pq_child);
+		d_delete(d->atrees[i].dict_child);
 	
-		if (pq->atrees[i].pq_child->n_elems == 0)
-			pq->atrees[i].non_empty = 0;
+		if (d->atrees[i].dict_child->n_elems == 0){
+			d->atrees[i].non_empty = 0;
+			del_amin_amax(d,i);
+		}
 				
 				
 	}
 
 }
 
-void pq_free(struct priority_queue *p) {
+void update_amin_amax(struct dictionary *d, int i){
+	
+	if(d->amin == -1){
+		d->amin = i;
+		d->amax = i;
+	}
+	else{
+		if(d->amin > i)
+			d->amin = i;
+		else if(d->amax < i)
+			d->amax = i;
+	}
+	
+}
+
+void del_amin_amax(struct dictionary *d, int i){
+	
+	int j;
+	
+	if(d->amin == i && d->max == i){
+		d->amin = d->amax = -1;
+		return;
+	}
+	if(d->amin == i){
+		d->amin = -1
+		for(j = i+1; j < d->nhijos; j++)
+			if(d->atrees[j].non_empty){
+				d->amin = j;
+				break;
+			}
+		
+	}
+	else if(d->max == i){
+		d->amax = -1
+		for(j = i-1; j > 0; j++)
+			if(d->atrees[j].non_empty){
+				d->amax = j;
+				break;
+			}
+	}
+	
+}
+
+void dict_free(struct dictionary *p) {
     
     int i;
     
     if(p->nhijos != 0){
 		for(i = 0; i < p->nhijos; i++){
-			pq_free(p->atrees[i].pq_child);
+			dict_free(p->atrees[i].dict_child);
 		}
 		
 		free(p->atrees);
