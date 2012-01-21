@@ -49,7 +49,7 @@ int dict_empty(struct dictionary *d) {
 }
 
 void dict_set(struct dictionary *d, unsigned int key, unsigned int value){
-    int i, tmp, h, l;
+    int i, tmp, tmpv, h, l;
 
 #ifdef DEBUG
     if (pq->n_elems == pq->elems[0]) {
@@ -80,26 +80,32 @@ void dict_set(struct dictionary *d, unsigned int key, unsigned int value){
 		}
 	}
 	else {
-		if (new_elem < pq->min) {
-			tmp = pq->min;
-			pq->min = new_elem;
-			new_elem = tmp;
+		if (key < pq->key_min) {
+			tmp = pq->key_min;
+			tmpv = pq->min;
+			pq->key_min = key;
+			pq->min = value;
+			key = tmp;
+			value = tmpv;
 		}
 		
-		else if (new_elem > pq->max) {
-			tmp = pq->max;
-			pq->max = new_elem;
-			new_elem = tmp;
+		else if (key > pq->key_max) {
+			tmp = pq->key_max;
+			tmpv = pq->max;
+			pq->key_max = key;
+			pq->max = value;
+			key = tmp;
+			value = tmpv;
 		}
 	}
 	
 		
 	if(pq->atrees != NULL){	
 		
-		h = higher(new_elem,pq->universo);
-		l = lower(new_elem,pq->universo);
+		h = higher(key,pq->universo);
+		l = lower(key,pq->universo);
 		
-		pq_insert (pq->atrees[h].pq_child,l);
+		pq_insert (pq->atrees[h].pq_child,l,value);
 	
 	
 		if (pq->atrees[h].dict_child->n_elems == 1){
