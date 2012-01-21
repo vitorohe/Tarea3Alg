@@ -51,67 +51,102 @@ int dict_empty(struct dictionary *d) {
 void dict_set(struct dictionary *d, unsigned int key, unsigned int value){
     int i, tmp, tmpv, h, l;
 
-#ifdef DEBUG
-    if (pq->n_elems == pq->elems[0]) {
-        printf("Max elems in priority queue exceeded.\n");
-        exit(1);
-    }
-#endif
-
-    pq->n_elems++;
-    if (pq->n_elems == 1) {
-			pq->max = value;
-			pq->key_max = key;
-			pq->min = value;
-			pq->key_min = key;
+    d->n_elems++;
+    if (d->n_elems == 1) {
+			d->max = value;
+			d->key_max = key;
+			d->min = value;
+			d->key_min = key;
 			return;
 		}
 		
-	else if (pq->n_elems == 2) {
-		if (key < pq->key_min) {
-			pq->key_min = key;
-			pq->min = value;
+	else if (d->n_elems == 2) {
+		if (key < d->key_min) {
+			d->key_min = key;
+			d->min = value;
 			return;
 		}
-		else {
-			pq->key_max = key;
-			pq->max = value;
+		else if(key > d->key_max){
+			d->key_max = key;
+			d->max = value;
 			return;
+		}
+		else{
+			if(value != d->max){
+				d->max = value;
+				d->min = value;
+				d->n_elems--;
+			}			
 		}
 	}
 	else {
-		if (key < pq->key_min) {
-			tmp = pq->key_min;
-			tmpv = pq->min;
-			pq->key_min = key;
-			pq->min = value;
+		if (key < d->key_min) {
+			tmp = d->key_min;
+			tmpv = d->min;
+			d->key_min = key;
+			d->min = value;
 			key = tmp;
 			value = tmpv;
 		}
 		
-		else if (key > pq->key_max) {
-			tmp = pq->key_max;
-			tmpv = pq->max;
-			pq->key_max = key;
-			pq->max = value;
+		else if (key > d->key_max) {
+			tmp = d->key_max;
+			tmpv = d->max;
+			d->key_max = key;
+			d->max = value;
 			key = tmp;
 			value = tmpv;
+		}
+		else if(key == d->key_max){
+			if(value != d->max){
+				d->max = value;
+				return;
+			}
+		}
+		else if(key == d->key_min){
+			if(value != d->min){
+				d->min = value;
+				return;
+			}
 		}
 	}
 	
 		
-	if(pq->atrees != NULL){	
+	if(d->atrees != NULL){	
 		
-		h = higher(key,pq->universo);
-		l = lower(key,pq->universo);
+		h = higher(key,d->universo);
+		l = lower(key,d->universo);
 		
-		pq_insert (pq->atrees[h].pq_child,l,value);
+		dict_set(d->atrees[h].dict_child,l,value);
 	
 	
-		if (pq->atrees[h].dict_child->n_elems == 1){
-			pq->atrees[h].non_empty = 1;
+		if (d->atrees[h].dict_child->n_elems == 1){
+			d->atrees[h].non_empty = 1;
 			update_amin_amax(d,h);
 		}
+		
+	}
+}
+
+int dict_get(struct dictionary *d, unsigned int key){
+
+    if (d->n_elems == 1)
+		if(key == d->key_max)
+			return d->max;
+		
+	else if (d->n_elems == 2)
+		if (key == d->key_min)
+			return d->min;
+
+		else if(key == d->key_max)
+			return d->max;
+			
+	if(d->atrees != NULL){	
+		
+		h = higher(key,d->universo);
+		l = lower(key,d->universo);
+		
+		return dict_get(d->atrees[h].dict_child,l);
 		
 	}
 }
