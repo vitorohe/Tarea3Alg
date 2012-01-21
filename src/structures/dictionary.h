@@ -59,14 +59,18 @@ struct dictionary {
 	
 	int min;
 	int max;
+	int amin;
+	int amax;
+	int key_min;
+	int key_max;
 	int n_elems;	
 	int universo;
 	int nhijos;
 	struct array_trees *atrees;
 		
 };
-
-void dict_up_min(struct dictionary *dict);
+void update_amin_amax(struct dictionary *d, int i);
+void del_amin_amax(struct dictionary *d, int i);
 int higher(int x, int universo);
 int lower(int x, int universo);
 
