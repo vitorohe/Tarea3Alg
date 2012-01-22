@@ -157,6 +157,8 @@ int dict_get(struct dictionary *d, unsigned int key){
 		return dict_get(d->atrees[h].dict_child,l);
 		
 	}
+	
+	return -1;
 }
 
 void dict_delete(struct dictionary *d, unsigned int key){
