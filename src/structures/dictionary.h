@@ -18,9 +18,8 @@
 #ifdef _AVL_TREE
 
 struct node{
-    struct node *parent;
     struct node *left, *right;
-    int balance;
+    int height;
     unsigned int key;
     unsigned int value;
 };
@@ -30,12 +29,16 @@ struct dictionary {
 };
 
 /* Tree operations */
-struct node *node_insert(struct node *root, struct node *new_node);
+struct node *node_insert(struct node *root, unsigned int key, unsigned int value);
+struct node *node_search(struct node *root, unsigned int key);
 void node_free(struct node *n);
 
 /* AVL Tree rotations */
-void zag(struct node *son, struct node *dad); 
-void zig(struct node *son, struct node *dad); 
+struct node *left_single(struct node *n); 
+struct node *right_single(struct node *n); 
+struct node *left_double(struct node *n); 
+struct node *right_double(struct node *n); 
+struct node *node_min(struct node *root);
 
 #endif
 
