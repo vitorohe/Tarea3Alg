@@ -16,6 +16,27 @@
 #endif
 /* ===================== AVL Tree ===================== */
 #ifdef _AVL_TREE
+
+struct node{
+    struct node *parent;
+    struct node *left, *right;
+    int balance;
+    unsigned int key;
+    unsigned int value;
+};
+
+struct dictionary {
+    struct node *root;
+};
+
+/* Tree operations */
+struct node *node_insert(struct node *root, struct node *new_node);
+void node_free(struct node *n);
+
+/* AVL Tree rotations */
+void zag(struct node *son, struct node *dad); 
+void zig(struct node *son, struct node *dad); 
+
 #endif
 
 /* ===================== Van Emde Boas Tree ===================== */
