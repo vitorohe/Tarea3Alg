@@ -109,6 +109,29 @@ void zagzag(struct node *son, struct node *dad, struct node *grandpa);
 /* ===================== Hash Table  ===================== */
 
 #ifdef _HASH_TABLE
+
+#define Bprime 16777289
+#define Sprime 65537
+
+struct node{
+    struct node *left, *right;
+    unsigned int key;
+    unsigned int value;
+};
+
+struct slot{
+	struct node *first;	
+};
+
+struct dictionary{
+	struct slot *slots;
+	int size;
+	int a, b, prime;
+};
+
+/* List operations */
+void node_free(struct node *n);
+
 #endif
 
 /* 
