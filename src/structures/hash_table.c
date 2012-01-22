@@ -13,13 +13,12 @@ struct dictionary *dict_new(unsigned int size, unsigned int universe){
 	
 	d = (struct dictionary *)malloc(sizeof(struct dictionary));
 	
-	//~ d->size = (int)pow(2,size);
-	d->size = 16;
+	d->size = (int)pow(2,size);
+	
 	if(size == 11)
 		d->prime = Sprime;
 	else
-		//~ d->prime = Bprime;
-		d->prime = 19;
+		d->prime = Bprime;
 		
 	d->a = 1+rand()%(d->prime-2);
 	d->b = rand()%(d->prime-1);
