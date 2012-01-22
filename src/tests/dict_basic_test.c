@@ -33,6 +33,11 @@ int main(int argc, char **argv) {
         printf("Extracted: %d -> %d \n", elems[i], aux);
     }
 
+    for (i = n_elems - 1; i >= 0; i--) {
+        printf("Deleting key: %d\n", elems[i]);
+        dict_delete(dict, elems[i]);
+    }
     dict_free(dict);
+    free(elems);
 }
 

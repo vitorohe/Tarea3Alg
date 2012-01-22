@@ -28,17 +28,34 @@ struct dictionary {
     struct node *root;
 };
 
-/* Tree operations */
-struct node *node_insert(struct node *root, unsigned int key, unsigned int value);
+struct node *insert_rec(struct node *root, struct node *new_node);
+struct node *search_rec(struct node *root, unsigned int key);
+void delete_rec(struct node *root, unsigned int key);
+struct node *delete_node(struct node *root);
+
+struct node *swap_with_left(struct node *dad, struct node *child);
+struct node *rebalance(struct node *root);
+
+struct node *rot_LL(struct node *old);
+struct node *rot_LR(struct node *old);
+struct node *rot_RL(struct node *old);
+struct node *rot_RR(struct node *old);
+
+
+void set_height(struct node *n);
+void free_rec(struct node *n);
+/*struct node *node_insert(struct node *root, unsigned int key, unsigned int value);
 struct node *node_search(struct node *root, unsigned int key);
-void node_free(struct node *n);
+void node_free(struct node *n);*/
 
 /* AVL Tree rotations */
-struct node *left_single(struct node *n); 
+/*struct node *left_single(struct node *n); 
 struct node *right_single(struct node *n); 
 struct node *left_double(struct node *n); 
 struct node *right_double(struct node *n); 
 struct node *node_min(struct node *root);
+*/
+
 
 #endif
 
