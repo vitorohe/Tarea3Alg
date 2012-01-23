@@ -1,3 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../structures/dictionary.h"
+
 struct dictionary *dict_new(unsigned int size, unsigned int universe){
 	struct dictionary *t;
 	t = (struct dictionary *)malloc(sizeof(struct dictionary));

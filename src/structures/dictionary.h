@@ -29,8 +29,29 @@ struct node *find_min(struct node *r);
 void node_free(struct node *r);
 void tree_print(struct node *r, int floor);
 #endif
-/* ===================== AVL Tree ===================== */
+/* ===================== Randomized Binary Tree ===================== */
 #ifdef _RANDOMIZED_BINARY_TREE
+struct node{
+    struct node *left, *right;
+		unsigned int key;
+    unsigned int value;
+		int size;
+};
+
+struct dictionary {
+    struct node *root;
+		int size;
+		int universe;
+};
+
+struct node *insert(struct node **r, unsigned int key, unsigned int value);
+void cut(struct node *r,struct node **t1, struct node **t2, unsigned int key, unsigned int value);
+int recalculate_sizes(struct node *r);
+int get(struct node *r, unsigned int key);
+int delete(struct node **r, unsigned int key);
+void prom(struct node **r);
+void node_free(struct node *r);
+void tree_print(struct node *r, int floor);
 #endif
 /* ===================== AVL Tree ===================== */
 #ifdef _AVL_TREE
