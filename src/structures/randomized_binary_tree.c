@@ -7,6 +7,7 @@ struct dictionary *dict_new(unsigned int size, unsigned int universe){
 	struct dictionary *t;
 	t= (struct dictionary *) malloc(sizeof(struct dictionary));
 	t->size = 0;
+	srand (time (0));
 	return t;
 }
 
@@ -21,6 +22,8 @@ void dict_set(struct dictionary *d, unsigned int key, unsigned int value){
 		new->key = key;
 		new->value = value;
 		new->size = 1;
+		new->left = NULL;
+		new->right = NULL;
 		d->root = new;
 	}
 	else
@@ -33,12 +36,10 @@ int dict_get(struct dictionary *d, unsigned int key){
 }
 
 void dict_delete(struct dictionary *d, unsigned int key){
-	struct node **aux;
-	aux = &(d->root);
-	if(delete(aux,key) == 1)
+	if(delete(&(d->root),key) != NULL)
 		d->size--;
-	if(d->size == 0)
-		d->root = NULL;
+	if(d->root == NULL)
+		d->size--;
 	recalculate_sizes(d->root);
 }
 
@@ -57,10 +58,11 @@ struct node *insert(struct node **r, unsigned int key, unsigned int value){
 		new->key = key;
 		new->value = value;
 		new->size = 1;
+		new->left = NULL;
+		new->right = NULL;
 		aux = new;
 		return aux;
 	}
-	srand(time (0));
 	ra = rand()%(aux->size) + 1;
 	if(ra == 1){
 		struct node *left;
@@ -146,55 +148,63 @@ int get(struct node *r, unsigned int key){
 		return -1;
 }
 
-int delete(struct node **r, unsigned int key){
-	struct node *aux;
-	aux = *r;
-	if(aux == NULL){
-		return -1;
-	}
-	if(aux->key == key){
-		 prom(r);
-		 return 1;
-	}
-	if(key < aux->key)
-		return delete(&((*r)->left),key);
-	if(key > aux->key)
-		return delete(&((*r)->right),key);
-}
-
-void prom(struct node **r){
+struct node *delete(struct node **r, unsigned int key){
 	int ra;
+	struct node *t;
 	struct node *aux;
-	aux = *r;
-	if(aux->size == 1){
-		node_free(aux);
-		*r = NULL;
-	}	
-	else if(aux->left == NULL){
-		aux->key = aux->right->key;
-		aux->value = aux->right->value;
-		prom(&aux->right);
-
-	}
-	else if(aux->right == NULL){
-		aux->key = aux->left->key;
-		aux->value = aux->left->value;
-		prom(&aux->left);
-	}
+	t = *r;
+	if(t == NULL)
+		return NULL;
+	if(key < t->key)
+		t->left = delete(&(t->left),key);
+	else if(key > t->key)
+		t->right = delete(&(t->right),key);
 	else{
-		srand (time (0));
-		ra = rand()%(aux->size) + 1;
-		if(ra <= aux->left->size){
-			aux->key = aux->left->key;
-			aux->value = aux->left->value;
-			prom(&aux->left);
+		if(t->left != NULL && t->right != NULL){
+			ra = rand()%(t->size) + 1;
+			if(ra <= t->left->size){
+				aux = find_min(t->right);
+				t->key = aux->key;
+				t->value = aux->value;
+				t->right = delete(&(t->right),t->key);
+			}
+			else{
+				aux = find_max(t->left);
+				t->key = aux->key;
+				t->value = aux->value;
+				t->left = delete(&(t->left),t->key);
+			}
 		}
 		else{
-			aux->key = aux->right->key;
-			aux->value = aux->right->value;
-			prom(&aux->right);
+			aux = *r;
+			if((*r)->left == NULL)
+				*r = (*r)->right;
+			else if((*r)->right == NULL)
+				*r = (*r)->left;
+			free(aux);
 		}
 	}
+	return *r;
+}
+
+struct node *find_min(struct node *r){
+	if(r == NULL)
+		return NULL;
+	else
+		if(r->left == NULL)
+			return r;
+		else
+			return find_min(r->left);
+}
+
+struct node *find_max(struct node *r){
+	if(r == NULL)
+		return NULL;
+	else
+		if(r->right == NULL)
+			return r;
+		else
+			return find_max(r->right);
 }
 
 void node_free(struct node *r){

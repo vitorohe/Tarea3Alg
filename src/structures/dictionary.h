@@ -22,7 +22,7 @@ struct dictionary {
 		int universe;
 };
 
-struct node *insert(struct node *r, unsigned int key, unsigned int value);
+struct node *insert(struct node **r, unsigned int key, unsigned int value);
 int get(struct node *r, unsigned int key);
 struct node *delete(struct node **r, unsigned int key);
 struct node *find_min(struct node *r);
@@ -48,8 +48,9 @@ struct node *insert(struct node **r, unsigned int key, unsigned int value);
 void cut(struct node *r,struct node **t1, struct node **t2, unsigned int key, unsigned int value);
 int recalculate_sizes(struct node *r);
 int get(struct node *r, unsigned int key);
-int delete(struct node **r, unsigned int key);
-void prom(struct node **r);
+struct node *delete(struct node **r, unsigned int key);
+struct node *find_min(struct node *r);
+struct node *find_max(struct node *r);
 void node_free(struct node *r);
 void tree_print(struct node *r, int floor);
 #endif

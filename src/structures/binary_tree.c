@@ -20,10 +20,12 @@ void dict_set(struct dictionary *d, unsigned int key, unsigned int value){
 		new = (struct node *)malloc(sizeof(struct node));		
 		new->key = key;
 		new->value = value;
+		new->left = NULL;
+		new->right = NULL;
 		d->root = new;
 	}
 	else
-		insert(d->root,key,value);
+		insert(&(d->root),key,value);
 	d->size++;
 }
 
@@ -34,6 +36,8 @@ int dict_get(struct dictionary *d, unsigned int key){
 void dict_delete(struct dictionary *d, unsigned int key){
 	if(delete(&(d->root),key) != NULL)
 		d->size--;
+	if(d->root == NULL)
+		d->size--;
 }
 
 void dict_free(struct dictionary *d){
@@ -41,21 +45,25 @@ void dict_free(struct dictionary *d){
 	free(d);
 }
 
-struct node *insert(struct node *r, unsigned int key, unsigned int value){
-	if(r == NULL){
+struct node *insert(struct node **r, unsigned int key, unsigned int value){
+	struct node *t;
+	t = *r;
+	if(*r == NULL){
 		struct node *new;
 		new = (struct node *)malloc(sizeof(struct node));
 		new->key = key;
 		new->value = value;
-		r = new;
-		return r;
+		new->left = NULL;
+		new->right = NULL;
+		*r = new;
+		return *r;
 	}
-	if(r->key == key);
-	if(key < r->key)
-		r->left = insert(r->left,key,value);
+	if(t->key == key);
+	if(key < t->key)
+		t->left = insert(&((*r)->left),key,value);
 	else
-		r->right = insert(r->right,key,value);
-	return r;
+		t->right = insert(&((*r)->right),key,value);
+	return *r;
 }
 
 int get(struct node *r, unsigned int key){

@@ -9,12 +9,23 @@ void main(){
 	int keys[10] = {5 ,3, 6, 2, 1, 7, 4, 8, 10, 9};
 	int values[10] = {5 ,3, 6, 2, 1, 7, 4, 8, 10, 9};
 	dict = dict_new(10,10);
-
+	printf("by insert\n");
 	for(i = 0; i < 10; i++){
 		dict_set(dict,keys[i],values[i]);
 	}
 	tree_print(dict->root,0); 
 	for(i = 0; i < 10; i++){
+		tree_print(dict->root,0);
+		printf("deleting %d\n",keys[i]);  
+		dict_delete(dict,keys[i]);
+	}
+	tree_print(dict->root,0);
+	printf("backwards\n");
+	for(i = 0; i < 10; i++){
+		dict_set(dict,keys[i],values[i]);
+	}
+	tree_print(dict->root,0); 
+	for(i = 9; i >= 0; i--){
 		tree_print(dict->root,0);
 		printf("deleting %d\n",keys[i]);  
 		dict_delete(dict,keys[i]);
