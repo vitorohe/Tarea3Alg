@@ -10,6 +10,24 @@
 
 /* ===================== Binary Tree ===================== */
 #ifdef _BINARY_TREE
+struct node{
+    struct node *left, *right;
+		unsigned int key;
+    unsigned int value;
+};
+
+struct dictionary {
+    struct node *root;
+		int size;
+		int universe;
+};
+
+struct node *insert(struct node *r, unsigned int key, unsigned int value);
+int get(struct node *r, unsigned int key);
+struct node *delete(struct node **r, unsigned int key);
+struct node *find_min(struct node *r);
+void node_free(struct node *r);
+void tree_print(struct node *r, int floor);
 #endif
 /* ===================== AVL Tree ===================== */
 #ifdef _RANDOMIZED_BINARY_TREE
