@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../structures/dictionary.h"
 
 void main(){
 	struct dictionary *dict;
