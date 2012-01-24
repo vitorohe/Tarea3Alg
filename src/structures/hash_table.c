@@ -4,6 +4,7 @@
 #include "dictionary.h"
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
 
 struct dictionary *dict_new(unsigned int size, unsigned int universe){
@@ -110,12 +111,15 @@ void dict_delete(struct dictionary *d, unsigned int key){
 	
 	i = hash(d,key);
 	
+	if(d->slots[i].first == NULL)
+		return;
+	
 	if(d->slots[i].first->key == key){
 		node_free(d->slots[i].first);
 		d->slots[i].first = NULL;
 		return;
 	}
-	
+
 	for(nodo = d->slots[i].first; nodo != NULL; nodo = nodo->right){
 		if(nodo->key == key){
 			if(nodo->left !=NULL)
