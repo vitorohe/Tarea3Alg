@@ -255,11 +255,42 @@ A continuación una pequeña descripción de cada una de las estructuras:
 \end_layout
 
 \begin_layout Standard
-Árbol binario de búsqueda
+Un Árbol binario de búsqueda es un árbol binario, con dos hijos para cada
+ nodo, que cumplen que el hijo izquierdo tiene un valor de llave menor al
+ padre y el hijo derecho un valor de llave mayor.
+ La búsqueda entonces se realiza bajando por el árbol, preguntado para cada
+ nodo si el valor de llave es mayor, igual o menor que el valor buscado,
+ hasta llegar a las hojas o al valor buscado, llegar a las hojas significa
+ que el valor no se encuentra en el árbol.
+ Las inserciones se realizan sencillamente repitiendo la operación de búsqueda
+ y fallando, para finalmente insertar el nuevo valor como hoja (se entiende
+ que las hojas son los valores nulos, hijos de un nodo).
+ Para eliminar un valor, si el valor no tiene nodos internos como hijos,
+ simplemente se elimina, sino se realiza una búsqueda hacia la derecha (decisión
+ arbitraria) para encontrar un valor mínimo para reemplazar por el nodo
+ a ser eliminado, luego del reemplazo se repite la búsqueda para cada uno
+ de los hijos derechos internos, para así asegurarse que no se rompe la
+ regla básica del árbol.
+ 
 \end_layout
 
 \begin_layout Standard
-Árbol binario de búsqueda aleatorizado
+Un Árbol binario de búsqueda aleatorizado es un árbol binario de búsqueda
+ donde se realiza de manera aleatoria dos operaciones básicas.
+ Primero se cambia la forma de insertar valores a un sistema probabilista,
+ se calcula un numero al azar entre 1 y el tamaño del árbol, si el valor
+ resultante es distinto de 1, entonces se realiza de manera normal, en cambio
+ si es igual a 1 entonces se realiza una operación de “corte”, esta operación
+ consiste en un balanceo del árbol actual en torno al valor que viene entrando,
+ de esta forma se evita, estadísticamente hablando, que el árbol se des-balancee
+ (esto es, que la proporción de elementos en el hijo izquierdo sea mayor
+ que el derecho) por sobre un margen estimable.
+ De la misma forma, para la eliminación se aliatoriza (a diferencia de la
+ definición anterior) si la corrección del valor por eliminar es buscando
+ un mínimo hacia la derecha, o un máximo hacia la izquierda (y esto de manera
+ recursiva), dependiendo si el valor aleatorio es menor o igual al peso
+ del árbol izquierdo o mayor que el mismo, por peso se entiende la cantidad
+ de nodos que pertenecen al subárbol.
 \end_layout
 
 \begin_layout Standard
@@ -357,11 +388,30 @@ Universo pequeño
 \end_layout
 
 \begin_layout Enumerate
-Árbol binario de búsqueda: 
+Árbol binario de búsqueda: Debería tener un desempeño bastante bueno dado
+ que todas las operaciones se realizan en tiempo 
+\begin_inset Formula $\mathcal{O}(logn)$
+\end_inset
+
+, para 
+\begin_inset Formula $n$
+\end_inset
+
+ la cantidad de llaves.
+ Esto dado la forma en que se recorre el árbol.
+ Aunque para este árbol el peor caso es de 
+\begin_inset Formula $\mathcal{O}(n)$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Enumerate
-Árbol binario de búsqueda aleatorizado: 
+Árbol binario de búsqueda aleatorizado: Su desempeño debería ser prácticamente
+ igual al del anterior pero con pequeñas variaciones, dado que para universos
+ pequeños el uso de las operaciones de amortización probabilista no representan
+ una optimizan realmente considerable.
 \end_layout
 
 \begin_layout Enumerate
@@ -427,11 +477,36 @@ Universo grande
 \end_layout
 
 \begin_layout Enumerate
-Árbol binario de búsqueda:
+Árbol binario de búsqueda: Debería tener un desempeño bastante bueno dado
+ que todas las operaciones se realizan en tiempo 
+\begin_inset Formula $\mathcal{O}(logn)$
+\end_inset
+
+, para 
+\begin_inset Formula $n$
+\end_inset
+
+ la cantidad de llaves, igual que para el universo más pequeño.
+ Para este universo, el peor caso de 
+\begin_inset Formula $\mathcal{O}(n)$
+\end_inset
+
+ de presentarse, debería ser notablemente más lento que el resto de los
+ algoritmos.
+ 
 \end_layout
 
 \begin_layout Enumerate
-Árbol binario de búsqueda aleatorizado: 
+Árbol binario de búsqueda aleatorizado: Para un universo más grande las
+ operaciones de amortización debieran comenzar a generar una mejora con
+ respecto al árbol binario simple puesto que, para este universo, la probabilida
+d de que ocurra una configuración del árbol para el peor caso se reduce
+ considerablemente.
+ Es esperable que para esta estructura el caso cotidiano 
+\begin_inset Formula $\mathcal{O}(logn)$
+\end_inset
+
+ sea el más frecuente.
 \end_layout
 
 \begin_layout Enumerate
