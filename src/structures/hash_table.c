@@ -14,9 +14,9 @@ struct dictionary *dict_new(unsigned int size, unsigned int universe){
 	
 	d = (struct dictionary *)malloc(sizeof(struct dictionary));
 	
-	d->size = (int)pow(2,size);
-	
-	if(size == 11)
+	d->size = size;
+
+	if(size == 2048)
 		d->prime = Sprime;
 	else
 		d->prime = Bprime;
@@ -54,7 +54,7 @@ void dict_set(struct dictionary *d, unsigned int key, unsigned int value){
 	struct node *nodo;
 	
 	i = hash(d,key);
-	
+		
 	if(d->slots[i].first == NULL){
 		d->slots[i].first = (struct node *)malloc(sizeof(struct node));
 		d->slots[i].first->key = key;
@@ -115,12 +115,21 @@ void dict_delete(struct dictionary *d, unsigned int key){
 		return;
 	
 	if(d->slots[i].first->key == key){
-		node_free(d->slots[i].first);
-		d->slots[i].first = NULL;
+		if(d->slots[i].first->right != NULL){
+			d->slots[i].first = d->slots[i].first->right;
+			d->slots[i].first->left->right = NULL;
+			d->slots[i].first->left->left = NULL;
+			node_free(d->slots[i].first->left);
+			d->slots[i].first->left = NULL;
+		}
+		else{
+			node_free(d->slots[i].first);
+			d->slots[i].first = NULL;
+		}
 		return;
 	}
 
-	for(nodo = d->slots[i].first; nodo != NULL; nodo = nodo->right){
+	for(nodo = d->slots[i].first->right; nodo != NULL; nodo = nodo->right){
 		if(nodo->key == key){
 			if(nodo->left !=NULL)
 				nodo->left->right = nodo->right;
