@@ -133,7 +133,7 @@ void update_amin_amax(struct dictionary *d, int i);
 void del_amin_amax(struct dictionary *d, int i);
 int higher(int x, int universo);
 int lower(int x, int universo);
-
+void printvEB(struct dictionary *d,int tabs);
 #endif
 
 /* ===================== Splay Tree ===================== */

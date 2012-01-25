@@ -302,3 +302,23 @@ int higher(int x, int universo) {
 int lower(int x, int universo) {
 	return (x & (0xffffffff >> (32-(int)ceil(log(universo)/log(2)) + ((int)ceil((log(universo)/log(2)))-(int)floor((log(universo)/log(2))/2)))));
 }
+
+void printvEB(struct dictionary *d,int tabs){
+	int i;	
+		
+	for(i = 0; i < tabs; i++)
+		printf("\t");
+	printf("min: %d, key_min %d\n",d->min,d->key_min);
+	
+	for(i = 0; i < tabs; i++)
+		printf("\t");
+	printf("max: %d, key_max: %d\n",d->max,d->key_max);
+	
+	for(i = 0; i < tabs; i++)
+		printf("\t");
+	printf("n_elems %d\n",d->n_elems);
+	
+	for(i = 0; i < d->nhijos; i++)
+		printvEB(d->atrees[i].dict_child,tabs+1);
+	
+}
