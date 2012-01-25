@@ -152,6 +152,9 @@ struct dictionary {
 };
 /* Tree operations */
 struct node *node_insert(struct node *root, struct node *new_node);
+struct node *node_search(struct node *root, unsigned int key);
+struct node *node_min(struct node *root);
+
 void node_free(struct node *n);
 
 /* Splay Tree rotations */

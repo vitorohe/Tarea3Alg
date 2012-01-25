@@ -33,7 +33,7 @@ void dict_set(struct dictionary *d, unsigned int key, unsigned int value) {
         new_node->left = new_node->right = new_node->parent = NULL;
         new_node->key = key;
         new_node->value = value;
-        p->root = node_insert(d->root, new_node);
+        d->root = node_insert(d->root, new_node);
     } else {
         new_node->value = value;
     }
@@ -42,8 +42,8 @@ void dict_set(struct dictionary *d, unsigned int key, unsigned int value) {
     d->root->parent = NULL;
 }
 
-int dict_delete(struct dictionary *d, unsigned int key) {
-    struct node *deleted_node, *left, *right;
+void dict_delete(struct dictionary *d, unsigned int key) {
+    struct node *deleted_node, *left, *right, *new_root;
     unsigned int ret;
  
     deleted_node = node_search(d->root, key);
