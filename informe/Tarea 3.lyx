@@ -649,6 +649,10 @@ Para cada caso, se midió el tiempo que tomaba una subsecuencia de tipo
 \begin_inset Formula $(i^{k}d^{k}i^{k})^{n}$
 \end_inset
 
+, otra de tipo 
+\begin_inset Formula $f^{kn}$
+\end_inset
+
  y una 
 \begin_inset Formula $(d^{k}i^{k}d^{k})^{n}$
 \end_inset
