@@ -88,9 +88,9 @@ int main(int argc, char **argv) {
     clock_gettime(CLOCK_MONOTONIC, &after);
  
     if (exp_universe > 20) {
-        printf("did: %lldms\t", timespec_diff_ms(after, before));
+        printf("did: %lldms\t\n", timespec_diff_ms(after, before));
     } else {
-        printf("did: %lldns\t", timespec_diff_ns(after, before));
+        printf("did: %lldns\t\n", timespec_diff_ns(after, before));
     }
 
     }
@@ -98,6 +98,7 @@ int main(int argc, char **argv) {
     free(deletes);
     free(finds);
     dict_free(dict);
+    exit(0);
 }
 
 

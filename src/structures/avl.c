@@ -131,9 +131,14 @@ void delete_rec(struct node *root, unsigned int key) {
     return;
 }
 
+struct node *node_min(struct node *root) {
+    return (root->left == NULL)? root : node_min(root->left);
+}
+
+
 struct node *delete_node(struct node *root) {
     struct node *child, *aux;
-
+    unsigned int key;
     if (root->left == NULL) {
         aux = root->right;
         free(root);
@@ -144,17 +149,21 @@ struct node *delete_node(struct node *root) {
         return aux;
     } else {
 
-        child = root->left;
-
-        if (child->right == NULL) {
+        if (root->right->left == NULL) {
+            child = root->right;
             root->value = child->value;
             root->key = child->key;
-            root->left = child->left;
+            root->right = child->right;
             free(child);
         } else {
-            root->left = swap_with_left(root, child);
+            key = root->key;
+            child = node_min(root->right);
+            root->value = child->value;
+            root->key = child->key;
+            child->key = key;
+            delete_rec(root, key);
         }
-
+        
         set_height(root);
         return rebalance(root);
     }

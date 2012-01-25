@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
     finds = (unsigned int *)malloc(sizeof(unsigned int) * find_size);
 
     //Create 2*3*k*n elements for insertion
-    create_random_array(insertions, ins_size, universe);
+    create_random_array(insertions, universe, ins_size);
 
     sorted = atoi(argv[4]);
 

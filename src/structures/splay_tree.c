@@ -72,6 +72,7 @@ void dict_delete(struct dictionary *d, unsigned int key) {
         } else {
             d->root = left;
         }
+        free(deleted_node);
     }
 }
 int dict_get(struct dictionary *d, unsigned int key) {

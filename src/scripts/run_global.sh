@@ -1,8 +1,9 @@
 #!/bin/bash
 
-if [ -e ./test_file ]; then
-    rm ./test_file
-fi
+set -e
+set -u
+
+rm -f ./insertions ./deletions ./finds
 
 exp_universe=16
 exp_n=11
