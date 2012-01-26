@@ -17,8 +17,8 @@ do
     do
         for m in {1..10}
         do
-            echo "Testing big universe, k=$k, run $m, sorted=$sorted" 
-            echo "Testing big universe, k=$k, run $m, sorted=$sorted" >> $file
+            echo "Testing small universe, k=$k, run $m, sorted=$sorted" 
+            echo "Testing small universe, k=$k, run $m, sorted=$sorted" >> $file
             ./make_instance $exp_n $k $exp_universe $sorted
 
             echo "Binary Tree:" >> $file
@@ -62,7 +62,7 @@ do
     do
         for m in {1..3}
         do
-            echo "Testing small universe, k=$k, run $m, sorted=$sorted" >> $file
+            echo "Testing big universe, k=$k, run $m, sorted=$sorted" >> $file
             ./make_instance $exp_n $k $exp_universe $sorted
 
             echo "Binary Tree:" >> $file
