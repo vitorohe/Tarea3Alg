@@ -81,8 +81,8 @@ void dict_set(struct dictionary *d, unsigned int key, unsigned int value){
 			if(value != d->max){
 				d->max = value;
 				d->min = value;
-				d->n_elems--;
 			}
+			d->n_elems--;
 			return;			
 		}
 	}
@@ -193,11 +193,13 @@ void dict_delete(struct dictionary *d, unsigned int key){
 	d->n_elems--;
 	
 	if(d->n_elems < 0){
+		printf("del 1\n");
 		d->n_elems = 0;
 		return;
 	}
 	
 	if(d->n_elems == 0){
+		printf("del 2\n");
 		d->key_min = INT_MIN;
 		d->key_max = INT_MAX;
 		d->min = INT_MIN;
@@ -206,6 +208,7 @@ void dict_delete(struct dictionary *d, unsigned int key){
 	}
 	
 	if (d->n_elems == 1) {
+		printf("del 3\n");
 		if(key == d->key_min){
 			d->min = d->max;
 			d->key_min = d->key_max;
@@ -221,11 +224,25 @@ void dict_delete(struct dictionary *d, unsigned int key){
 	
 	else {
 		if(key == d->key_min){
-			//~ printf("del 41\n");
+			printf("del 41\n");
 			for(i = 0; i < d->nhijos; i++)
 				if(d->atrees[i].non_empty)
 					break;
 				
+			//~ if(i == -1){
+				//~ 
+				//~ if(d->key_max == INT_MAX){
+					//~ d->key_min = INT_MIN;
+					//~ d->min = INT_MIN;
+					//~ d->n_elems = 0;
+				//~ }
+				//~ else{
+					//~ d->key_min = d->key_max;
+					//~ d->min = d->max;
+					//~ d->n_elems = 1;
+				//~ }
+				//~ return;
+			//~ }
 			
 			d->key_min=i*d->atrees[i].dict_child->universo + d->atrees[i].dict_child->key_min;
 			//~ if(d->key_min == INT_MIN){
@@ -247,11 +264,27 @@ void dict_delete(struct dictionary *d, unsigned int key){
 		
 		else if(key == d->key_max){
 			//~ printf("del 42\n");
-			for(i = d->nhijos - 1; i >= 0; i--)
-				if(d->atrees[i].non_empty)
-					break;
+			//~ for(i = d->nhijos - 1; i >= 0; i--)
+				//~ if(d->atrees[i].non_empty)
+					//~ break;
 				
-			//~ printf("del 42 1 %d\n",i);
+			printf("del 42 1 %d\n",i);
+			
+			//~ if(i == -1){
+				//~ 
+				//~ if(d->key_min == INT_MIN){
+					//~ d->key_max = INT_MAX;
+					//~ d->max = INT_MAX;
+					//~ d->n_elems = 0;
+				//~ }
+				//~ else{
+					//~ d->key_max = d->key_min;
+					//~ d->max = d->min;
+					//~ d->n_elems = 1;
+				//~ }
+				//~ return;
+			//~ }
+			
 			d->key_max=i*d->atrees[i].dict_child->universo + d->atrees[i].dict_child->key_max;
 			//~ printf("del 42 2\n");
 			//~ if(d->key_max == INT_MAX){
@@ -269,7 +302,7 @@ void dict_delete(struct dictionary *d, unsigned int key){
 			//~ i = d->amax;
 		}
 		else{
-			//~ printf("del 43\n");
+			printf("del 43\n");
 			i = higher(key,d->universo);
 			key = lower(key,d->universo);
 		}
