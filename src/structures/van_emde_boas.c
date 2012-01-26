@@ -263,10 +263,10 @@ void dict_delete(struct dictionary *d, unsigned int key){
 		}			
 		
 		else if(key == d->key_max){
-			//~ printf("del 42\n");
-			//~ for(i = d->nhijos - 1; i >= 0; i--)
-				//~ if(d->atrees[i].non_empty)
-					//~ break;
+			printf("del 42\n");
+			for(i = d->nhijos - 1; i >= 0; i--)
+				if(d->atrees[i].non_empty)
+					break;
 				
 			printf("del 42 1 %d\n",i);
 			
