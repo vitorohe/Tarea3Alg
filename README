@@ -1,0 +1,21 @@
+Para compilar los scripts y programas que realizan los tests, basta con ejecutar:
+
+    $ make all
+
+en la carpeta principal (i.e. donde se encuentra el Makefile). Si se quisiera rehacer
+la compilación luego de realizar tests, conviene ejecutar
+
+    $ make clean
+
+antes de volver a ejecutar make all.
+
+Una vez compilados los programas y copiados los scripts, la carpeta bin contendrá
+los ejecutables. El test de inserciones y deleciones se ejecuta a través del script
+run_global.sh.
+
+Ambos tests crean archivos de resultados en la carpeta bin/results . Si estos archivos 
+ya existían, los nuevos resultados serán escritos al final de éstos, con el objetivo
+de evitar la pérdida de resultados.
+
+Ambos scripts se ejecutan en bash (debido a la forma de iterar usando {a..b})
+en vez de simplemente sh.
