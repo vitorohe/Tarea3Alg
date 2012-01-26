@@ -425,9 +425,10 @@ Universo pequeño
 \end_layout
 
 \begin_layout Enumerate
-Árbol AVL: Es esperable que, dada la necesidad de realizar varias inserciones
- y borrados, el comportamiento sea lento para un universo pequeño, en el
- que el crecimiento per se del árbol no es masivo.
+Árbol AVL: Se espera que para las subsecuencias con mayor cantidad de borrados
+ AVL tenga el peor comportamiento debido a que, potencialmente, realizara
+ logn rebalanceos, para el resto de los casos, según la teoría, debería
+ tener un comportamiento parecido y en general bueno.
 \end_layout
 
 \begin_layout Enumerate
@@ -442,13 +443,8 @@ do sería más costoso que el caso de números aleatorizados.
 \end_layout
 
 \begin_layout Enumerate
-Splay Tree: Se espera que exista un mayor costo en las inserciones que en
- las extracciones, debido a que las rotaciones se simplifican en el caso
- de bajar siempre por el hijo más izquierdo.
- Esto sucede porque se realizan más rotaciones dobles, que hacen avanzar
- rápidamente el algoritmo.
- Se tiene también que se deben realizar múltiples comparaciones al bajar
- en el caso de la inserción, lo que debiera agregarle un costo.
+Splay Tree: El comportamiento de Splay tree debería ser el peor para inserciones
+ ordenadas, mejorando según que tan aleatoria sea la forma de los ingresos.
 \end_layout
 
 \begin_layout Enumerate
@@ -528,11 +524,11 @@ d de que ocurra una configuración del árbol para el peor caso se reduce
 \end_layout
 
 \begin_layout Enumerate
-Árbol AVL: En este caso es de esperarse que las operaciones de balanceo
- del árbol reduzcan los tiempos de inserción y borrado, siendo más eficientes
- que para el universo pequeño, en donde el balanceo era, en promedio, más
- costoso que el posicionamiento de los elementos, cumpliendo la condición
- base de balance del árbol.
+Árbol AVL: Al igual que para el otro universo, se espera que para las subsecuenc
+ias con mayor cantidad de borrados AVL tenga el peor comportamiento debido
+ a que, potencialmente, realizara logn rebalanceos, para el resto de los
+ casos, según la teoría, debería tener un comportamiento parecido y en general
+ bueno.
 \end_layout
 
 \begin_layout Enumerate
@@ -545,9 +541,9 @@ Van Emde Boas: Dado un universo más grande, la cantidad de niveles del árbol
 \end_layout
 
 \begin_layout Enumerate
-Splay Tree: De nuevo, se espera que las subsecuencias con más extracciones
- sean las más eficientes, debido al ahorro en comparaciones y rotaciones.
- El mayor tamaño del universo no debiera afectar mayormente a la estructura.
+Splay Tree: De nuevo, se espera que el comportamiento de Splay tree sea
+ el peor para inserciones ordenadas, mejorando según que tan aleatoria sea
+ la forma de los ingresos.
 \end_layout
 
 \begin_layout Enumerate
@@ -576,8 +572,8 @@ Inserciones, Búsquedas y Extracciones
 \end_layout
 
 \begin_layout Standard
-Para la experimentación con las distintas colas de prioridad, se utilizaron
- dos universos: el primero con elementos en el rango 
+Para la experimentación con los distintos diccionarios, se utilizaron dos
+ universos: el primero con elementos en el rango 
 \begin_inset Formula $[0..2^{16}-1]$
 \end_inset
 
@@ -664,8 +660,8 @@ Para cada estructura estudiada, se realizó la secuencia de operaciones para
 
 \end_deeper
 \begin_layout Itemize
-Esto se repitió 10 veces para el universo pequeño y 3 para el universo grande,
- para cada tamaño de instancia.
+Esto se repitió 5 veces para el universo pequeño, utilizando 10 instancias
+ y 2 para el universo grande, utilizando 3 instancias.
 \end_layout
 
 \begin_layout Itemize
