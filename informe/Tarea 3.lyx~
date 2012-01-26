@@ -1158,7 +1158,7 @@ Universo pequeño
 \end_layout
 
 \begin_layout Enumerate
-Árbol binario de búsqueda aleatorizado: 
+Árbol binario de búsqueda aleatorizado:
 \end_layout
 
 \begin_layout Enumerate
@@ -1383,7 +1383,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-1626819
+534137
 \end_layout
 
 \end_inset
@@ -1457,7 +1457,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-1626819
+344687
 \end_layout
 
 \end_inset
@@ -1466,7 +1466,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-42994318
+632375
 \end_layout
 
 \end_inset
@@ -1475,7 +1475,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-7808647
+4200604
 \end_layout
 
 \end_inset
@@ -1493,7 +1493,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-2335121
+650858
 \end_layout
 
 \end_inset
@@ -1502,7 +1502,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-541291
+
 \end_layout
 
 \end_inset
@@ -1679,7 +1679,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-11318542
+2869630
 \end_layout
 
 \end_inset
@@ -1688,7 +1688,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-998961990
+5546458
 \end_layout
 
 \end_inset
@@ -1697,7 +1697,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-50361768
+29553139
 \end_layout
 
 \end_inset
@@ -1715,7 +1715,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-12817726
+4892167
 \end_layout
 
 \end_inset
@@ -1724,7 +1724,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-3368347
+
 \end_layout
 
 \end_inset
@@ -1901,7 +1901,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-44581829
+6837762
 \end_layout
 
 \end_inset
@@ -1910,7 +1910,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-8001149345
+14168775
 \end_layout
 
 \end_inset
@@ -1919,7 +1919,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-161826368
+65054741
 \end_layout
 
 \end_inset
@@ -1937,7 +1937,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-36523000
+10865739
 \end_layout
 
 \end_inset
@@ -1946,7 +1946,7 @@ Tabla de Hash [ns]
 \begin_inset Text
 
 \begin_layout Plain Layout
-10781955
+
 \end_layout
 
 \end_inset
@@ -2278,7 +2278,7 @@ Tabla de Hash [ms]
 \begin_inset Text
 
 \begin_layout Plain Layout
-10905
+484
 \end_layout
 
 \end_inset
@@ -2500,7 +2500,7 @@ Tabla de Hash [ms]
 \begin_inset Text
 
 \begin_layout Plain Layout
-2973949
+1432
 \end_layout
 
 \end_inset
@@ -2722,7 +2722,7 @@ Tabla de Hash [ms]
 \begin_inset Text
 
 \begin_layout Plain Layout
-12119743
+3033
 \end_layout
 
 \end_inset
