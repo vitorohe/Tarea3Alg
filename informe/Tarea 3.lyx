@@ -294,7 +294,17 @@ Un Árbol binario de búsqueda aleatorizado es un árbol binario de búsqueda
 \end_layout
 
 \begin_layout Standard
-Árbol AVL
+Los árboles AVL están siempre equilibrados de tal modo que para todos los
+ nodos, la altura de la rama izquierda no difiere en más de una unidad de
+ la altura de la rama derecha o viceversa.
+ Gracias a esta forma de equilibrio (o balanceo), la complejidad de una
+ búsqueda en uno de estos árboles se mantiene siempre en orden de complejidad
+\begin_inset Formula $\mathcal{O}(logn)$
+\end_inset
+
+.
+ El factor de equilibrio puede ser almacenado directamente en cada nodo
+ o ser computado a partir de las alturas de los subárboles.
 \end_layout
 
 \begin_layout Standard
@@ -415,7 +425,9 @@ Universo pequeño
 \end_layout
 
 \begin_layout Enumerate
-Árbol AVL:
+Árbol AVL: Es esperable que, dada la necesidad de realizar varias inserciones
+ y borrados, el comportamiento sea lento para un universo pequeño, en el
+ que el crecimiento per se del árbol no es masivo.
 \end_layout
 
 \begin_layout Enumerate
@@ -430,7 +442,13 @@ do sería más costoso que el caso de números aleatorizados.
 \end_layout
 
 \begin_layout Enumerate
-Splay Tree:
+Splay Tree: Se espera que exista un mayor costo en las inserciones que en
+ las extracciones, debido a que las rotaciones se simplifican en el caso
+ de bajar siempre por el hijo más izquierdo.
+ Esto sucede porque se realizan más rotaciones dobles, que hacen avanzar
+ rápidamente el algoritmo.
+ Se tiene también que se deben realizar múltiples comparaciones al bajar
+ en el caso de la inserción, lo que debiera agregarle un costo.
 \end_layout
 
 \begin_layout Enumerate
@@ -510,7 +528,11 @@ d de que ocurra una configuración del árbol para el peor caso se reduce
 \end_layout
 
 \begin_layout Enumerate
-Árbol AVL
+Árbol AVL: En este caso es de esperarse que las operaciones de balanceo
+ del árbol reduzcan los tiempos de inserción y borrado, siendo más eficientes
+ que para el universo pequeño, en donde el balanceo era, en promedio, más
+ costoso que el posicionamiento de los elementos, cumpliendo la condición
+ base de balance del árbol.
 \end_layout
 
 \begin_layout Enumerate
@@ -523,7 +545,9 @@ Van Emde Boas: Dado un universo más grande, la cantidad de niveles del árbol
 \end_layout
 
 \begin_layout Enumerate
-Splay Tree:
+Splay Tree: De nuevo, se espera que las subsecuencias con más extracciones
+ sean las más eficientes, debido al ahorro en comparaciones y rotaciones.
+ El mayor tamaño del universo no debiera afectar mayormente a la estructura.
 \end_layout
 
 \begin_layout Enumerate
